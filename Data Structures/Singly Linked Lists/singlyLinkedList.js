@@ -164,6 +164,88 @@ class SinglyLinkedList{
         // If the node is not found, return false
         return false;
     }
+
+    insert(index, value) {
+        // If the index is less than zero or greater than the length, return false
+        if (index < 0 || index > this.length) {
+            return false;
+        }
+        // If the index is the same as the length, push a new node to the end of the list
+        if (index === this.length) {
+            this.push(value);
+            return true;
+        }
+        // If the index is 0, unshift a new node to the start of the list
+        if (index === 0) {
+            this.unshift(value);
+            return true;
+        }
+        // Otherwise, using the get method, access the node at the (index - 1)
+        let prevNode = this.get(index - 1);
+        // Create the new node
+        let newNode = new Node(value);
+        // Get the next node after prevNode
+        let nextNode = this.get(index);
+        // Set the property on the new node to be the previous next
+        newNode.next = prevNode.next;
+        // Set the next property on the previous node to be the new node
+        prevNode.next = newNode;
+        // Set the previous.next to be the new node
+        newNode.next = nextNode;
+        // Increment the length
+        this.length++;
+        // Return true
+        return true;
+    }
+
+    remove(index) {
+        // If the index is less than zero or greater than the length, return undefined
+        if (index < 0 || index > this.length) {
+            return undefined;
+        }
+        // If the index is the same as length - 1, then pop
+        if (index === this.length - 1) {
+            return this.pop();
+        }
+        // If the index is 0, shift
+        if (index === 0) {
+            return this.shift();
+        }
+        // Otherwise, using the get method, access the node at the index - 1
+        let prevNode = this.get(index - 1);
+        let removedNode = this.get(index);
+        let nextNode = removedNode.next;
+        // Set the next property on that node to be the next of the next node
+        prevNode.next = nextNode;
+        // Decrement the length
+        this.length--;
+        // Return the value of the node removed
+        return removedNode;
+    }
+
+    reverse() {
+        // Create a variable called node and initialize it to the head property
+        let node = this.head;
+        // Swap the head and the tail
+        this.head = this.tail;
+        this.tail = node;
+        // Create a variable called next
+        let next;
+        // Create a variable called prev, and set to null for the tail of the list
+        let prev = null;
+        // Loop through the list
+        for (let i = 0; i < this.length; i++) {
+            // Set next to be the next property on whatever node is
+            next = node.next;
+            // Set the next property on the node to be whatever prev is
+            node.next = prev;
+            // Set the prev to be the value of the node variable
+            prev = node;
+            // Set the node variable to be the value of the next variable
+            node = next;
+        }
+        return this;
+    }
 }
 
 var list = new SinglyLinkedList()
@@ -172,6 +254,6 @@ list.push("GOODBYE")
 list.push("Goodbye for real this time")
 
 console.log(
-    list.set(2, "hello again"),
+    list.reverse(),
     list.tail
 )
