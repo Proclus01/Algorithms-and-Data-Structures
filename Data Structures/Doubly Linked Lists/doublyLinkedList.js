@@ -106,7 +106,34 @@ class DoublyLinkedList {
     }
 
     get(index) {
+        let counter, current;
+        // If the index is less than 0 or greater or equal to the length, return null	
+        if (index < 0 || index >= this.length) return null;
+        // If the index is less than or equal to half the length of the list:
+        if (index <= this.length / 2) {
+            // Loop through the list starting from the head and loop towards the middle
+            counter = 0;
+            current = this.head;
+    
+            while (counter !== index) {
+                current = current.next;
+                counter++;
+            }
+        }	
+        // If the index is greater than half the length of the list:	
+        else {
+            // Loop through the list starting from the tail and loop towards the middle
+            counter = this.length - 1;
+            current = this.tail;
+    
+            while (counter !== index) {
+                current = current.prev;
+                counter--;
+            }
 
+        }
+        // Return the node once it is found
+        return current;
     }
 }
 
@@ -114,7 +141,11 @@ let list = new DoublyLinkedList();
 list.push("doubly")
 list.push("linked")
 list.push("list")
+list.push("again")
+list.push("until")
+list.push("the")
+list.push("end")
 
 console.log(
-    list.unshift("another")
+    list.get(0)
 );
