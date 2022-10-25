@@ -106,9 +106,9 @@ class DoublyLinkedList {
     }
 
     get(index) {
-        let counter, current;
         // If the index is less than 0 or greater or equal to the length, return null	
         if (index < 0 || index >= this.length) return null;
+        let counter, current;
         // If the index is less than or equal to half the length of the list:
         if (index <= this.length / 2) {
             // Loop through the list starting from the head and loop towards the middle
@@ -135,6 +135,22 @@ class DoublyLinkedList {
         // Return the node once it is found
         return current;
     }
+
+    set(index, value) {
+        // Create a variable which is the result of the get method 
+        // at the index passed to the function
+        let nodeToUpdate = this.get(index);
+        // If the get method returns a valid node, set the value of 
+        // that node to be the value passed to the function
+        if (nodeToUpdate) {
+            nodeToUpdate.val = value;
+            // Return true
+            return true;
+        } else {
+            // Otherwise, return false
+            return false;
+        }
+    }
 }
 
 let list = new DoublyLinkedList();
@@ -147,5 +163,6 @@ list.push("the")
 list.push("end")
 
 console.log(
-    list.get(0)
+    list.set(3, "boo!"),
+    list.get(3)
 );
