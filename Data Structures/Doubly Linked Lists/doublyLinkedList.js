@@ -58,6 +58,53 @@ class DoublyLinkedList {
         // Return the value removed 
         return oldTail;
     }
+
+    shift() {
+        // If the length is 0, return undefined
+        if (this.head === null) {
+            return undefined;
+        }
+        // Store the current head property in a variable (we'll call it old head)
+        let oldHead = this.head;
+        // If the length is one, set the head to be null, and set the tail to be null
+        if (this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        } else { // (You need this else block otherwise code inside will run when length is 1)
+            // Update the head to be the next of the old head
+            this.head = oldHead.next;
+            // Set the head's prev property to null
+            this.head.prev = null;
+            // Set the old head's next to null
+            oldHead.next = null;
+        }
+        // Decrement the length
+        this.length--;
+        // Return the old head
+        return oldHead;
+    }
+
+    unshift(val) {
+    // Create a new node with the value passed to the function
+    let newNode = new Node(val);
+    // If the length is 0, set the head to be the new node, set the tail to be the new node
+    if (this.head === null) {
+        this.head = newNode;
+        this.tail = newNode;
+    } else {
+        // Otherwise,	
+        // 	• Set the prev property on the head of the list to be the new node
+        this.head.prev = newNode;
+        // 	• Set the next property on the new node to be the head property
+        newNode.next = this.head;
+        // 	• Update the head to be the new node
+        this.head = newNode;
+    }	
+    // Increment the length	
+    this.length++;
+    // Return the list
+    return this;	
+    }
 }
 
 let list = new DoublyLinkedList();
@@ -65,7 +112,6 @@ list.push("doubly")
 list.push("linked")
 list.push("list")
 
-
 console.log(
-    list
+    list.unshift("another")
 );
