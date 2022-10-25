@@ -151,18 +151,72 @@ class DoublyLinkedList {
             return false;
         }
     }
+
+    insert(index, value) {
+        // If the index is less than zero or greater than the length return false (bc we can add at end)
+        if (index < 0 || index > this.length) return false;
+        // If the index is 0, use unshift
+        if (index === 0) {
+            return !!this.unshift(value);
+        }
+        // If the index is the same as the length, push
+        if (index === this.length) {
+            return !!this.push(value);
+        }
+        // Otherwise use the get method to access the index - 1 
+        // (right before where we're trying to insert)
+        let valueBeforeIndex = this.get(index - 1);
+        let valueAfterIndex = valueBeforeIndex.next;
+        let valueToInsert = new Node(value);
+        // Set the next and prev properties on the correct nodes to link everything together
+        valueBeforeIndex.next = valueToInsert;
+        valueToInsert.prev = valueBeforeIndex;
+        valueToInsert.next = valueAfterIndex;
+        valueAfterIndex.prev = valueToInsert;
+        // Increment the length
+        this.length++;
+        // Return true
+        return true;
+    }
+
+    remove(index) {
+        // If the index is less than zero or greater than or equal to the length, return undefined
+        if (index < 0 || index >= this.length) return undefined;
+        // If the index is 0, then shift
+        if (index === 0) {
+            return this.shift();
+        }
+        // If the index is the same as the length-1, then pop
+        if (index === this.length - 1) {
+            return this.pop();
+        }
+        // Use the get method to retrieve the item to be removed
+        let itemToBeRemoved = this.get(index);
+        let prevItem = this.get(index - 1);
+        let nextItem = this.get(index + 1);
+        // Update the next and prev properties to remove the found node from the list
+        prevItem.next = nextItem;
+        nextItem.prev = prevItem;
+        // Set the next and prev to null on the found node
+        itemToBeRemoved.prev = null;
+        itemToBeRemoved.next = null;
+        // Decrement the length
+        this.length--;
+        // Return the removed node
+        return itemToBeRemoved;
+    }
+
+    reverse() {
+
+    }
 }
 
 let list = new DoublyLinkedList();
 list.push("doubly")
 list.push("linked")
 list.push("list")
-list.push("again")
-list.push("until")
-list.push("the")
-list.push("end")
 
 console.log(
-    list.set(3, "boo!"),
-    list.get(3)
+    list.remove(1),
+    list
 );
