@@ -207,7 +207,29 @@ class DoublyLinkedList {
     }
 
     reverse() {
-
+        // If the list is empty or has a single node, return the DLL
+        if (this.length < 2) return this;
+        // Create a node variable and initialize it to the head
+        let node = this.head
+        // Swap the head and the tail
+        this.head = this.tail;
+        this.tail = node;
+        // Create a variable called next and prev, and set to null
+        let next = null;
+        let prev = null;
+        // Loop through the list
+        for (let i = 0; i < this.length; i++) {
+            // Set next to be the next property on node
+            next = node.next;
+            // Set prev do be the prev property on node
+            prev = node.prev;
+            // Reverse next and prev on node
+            node.prev = next;
+            node.next = prev;
+            // Set the node variable to be the value of the next variable
+            node = next;
+        }
+        return this;
     }
 }
 
@@ -217,6 +239,5 @@ list.push("linked")
 list.push("list")
 
 console.log(
-    list.remove(1),
-    list
+    list.reverse()
 );
