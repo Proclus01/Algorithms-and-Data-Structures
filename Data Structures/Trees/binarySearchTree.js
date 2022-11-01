@@ -100,6 +100,72 @@ class BinarySearchTree {
         // Return the variable that stores the values
         return data;
     }
+
+    dfsPreOrder() {
+        // Create a variable to store the values of nodes visited
+        let data = [];
+        // Store the root of the BST in a variable called current
+        let current = this.root;
+        // Write a helper function which accepts a node
+        function traverse(node) {
+            // Push the value of the node to the variable that stores the value
+            data.push(node.value);
+            // If the node has a left property, call the
+            // helper function with the left property on the node
+            if (node.left) traverse(node.left);
+            // If the node has a right property, call the
+            // helper function with the left property on the node
+            if (node.right) traverse(node.right);
+        }
+        // Invoke the helper function with the current variable
+        traverse(current);
+        // Return the array of values
+        return data;
+    }
+
+    dfsPostOrder() {
+        // Create a variable to store the values of nodes visited
+        let data = [];
+        // Store the root of the BST in a variable called current
+        let current = this.root;
+        // Write a helper function which accepts a node
+        function traverse(node) {
+            // If the node has a left property, call the
+            // helper function with the left property on the node
+            if (node.left) traverse(node.left);
+            // If the node has a right property, call the
+            // helper function with the left property on the node
+            if (node.right) traverse(node.right);
+            // Push the value of the node to the variable that stores the value
+            data.push(node.value);
+        }
+        // Invoke the helper function with the current variable
+        traverse(current);
+        // Return the array of values
+        return data;
+    }
+
+    dfsInOrder() {
+        // Create a variable to store the values of nodes visited
+        let data = [];
+        // Store the root of the BST in a variable called current
+        let current = this.root;
+        // Write a helper function which accepts a node
+        function traverse(node) {
+            // If the node has a left property, call the
+            // helper function with the left property on the node
+            if (node.left) traverse(node.left);
+            // Push the value of the node to the variable that stores the value
+            data.push(node.value);
+            // If the node has a right property, call the
+            // helper function with the left property on the node
+            if (node.right) traverse(node.right);
+        }
+        // Invoke the helper function with the current variable
+        traverse(current);
+        // Return the array of values
+        return data;
+    }
 }
 
 var tree = new BinarySearchTree();
@@ -111,3 +177,6 @@ tree.insert(8);
 tree.insert(20);
 
 console.log(tree.breadthFirstSearch()); // [ 10, 6, 15, 3, 8, 20 ]
+console.log(tree.dfsPreOrder()); // [ 10, 6, 3, 8, 15, 20 ]
+console.log(tree.dfsPostOrder()); // [ 3, 8, 6, 20, 15, 10 ]
+console.log(tree.dfsInOrder()); // [ 3, 6, 8, 10, 15, 20 ]
