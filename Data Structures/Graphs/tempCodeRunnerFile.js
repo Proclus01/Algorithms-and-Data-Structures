@@ -1,2 +1,1 @@
-ex1
-        this.adjacencyList[vertex2] =
+ 'D', 'B' ]
